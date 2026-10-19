@@ -11,6 +11,8 @@ module.exports = async function handler(req, res) {
     const c = m.chat; if (!c) return;
     chats[c.id] = { id: c.id, type: c.type, name: c.title || [c.first_name, c.last_name].filter(Boolean).join(" "), username: c.username || null };
   });
+  const me = await fetch("https://api.telegram.org/bot" + token + "/getMe").then((x) => x.json()).catch(() => ({}));
+  const hook = await fetch("https://api.telegram.org/bot" + token + "/getWebhookInfo").then((x) => x.json()).catch(() => ({}));
   res.setHeader("Cache-Control", "no-store");
-  return res.status(200).json({ ok: true, chats: Object.values(chats) });
+  return res.status(200).json({ ok: true, bot: me.result ? me.result.username : null, webhook: hook.result ? Boolean(hook.result.url) : null, updates: (r.result || []).length, chats: Object.values(chats) });
 };
