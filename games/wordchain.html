@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Finish the Word</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&family=Rubik:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="games.css">
+<style>
+html,body{margin:0;min-height:100%}#game{min-height:100vh}
+.lang-switch{position:fixed;right:max(12px,env(safe-area-inset-right,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));z-index:30;display:flex;gap:2px;padding:3px;border-radius:999px;background:rgb(12 14 19/.82);backdrop-filter:blur(6px)}
+.lang-switch a{color:#fff;text-decoration:none;font:600 12px/1 system-ui,sans-serif;padding:7px 9px;border-radius:999px;opacity:.7}
+.lang-switch a[aria-current]{background:#fff;color:#0c0e13;opacity:1}
+</style>
+</head>
+<body>
+<div id="game"></div>
+<nav class="lang-switch" aria-label="Language"><a href="?lang=ru" lang="ru">RU</a><a href="?lang=ky" lang="ky">KY</a><a href="?lang=en" lang="en">EN</a></nav>
+<script src="wordchain.js"></script>
+<script>
+(function () {
+  var titles = {"ru": "Finish the Word", "ky": "Finish the Word", "en": "Finish the Word"};
+  var l = new URLSearchParams(location.search).get("lang");
+  try { if (l) localStorage.setItem("kletka-lang", l); else l = localStorage.getItem("kletka-lang"); } catch (e) {}
+  l = ["ru", "ky", "en"].indexOf(l) >= 0 ? l : "ru";
+  document.documentElement.lang = l;
+  document.title = titles[l];
+  document.querySelectorAll(".lang-switch a").forEach(function (a) { if (a.lang === l) a.setAttribute("aria-current", "true"); });
+  window.GAMES.wordchain.mount(document.getElementById("game"), { base: "", lang: l });
+})();
+</script>
+</body>
+</html>
