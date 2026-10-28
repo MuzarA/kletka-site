@@ -130,11 +130,45 @@
   </section>
 
   <section class="section" id="contact">
-    <div class="wrap contact-solo">
-      <span class="eyebrow" data-i18n="contact.eyebrow">Консультация</span>
-      <h2 data-i18n="contact.h2"></h2>
-      <p id="contactLead"></p>
-      <a class="btn btn-primary tg-cta" id="tgCta" href="https://t.me/kletka_leads_bot" target="_blank" rel="noopener"></a>
+    <div class="wrap contact-grid">
+      <div class="contact-info">
+        <span class="eyebrow" data-i18n="contact.eyebrow">Консультация</span>
+        <h2 data-i18n="contact.h2"></h2>
+        <p id="contactLead"></p>
+        <div class="channels" id="channels"></div>
+      </div>
+
+      <form class="form" id="leadForm" novalidate>
+        <h3 data-i18n="form.title">Заявка на консультацию</h3>
+        <div class="row-2">
+          <div class="field">
+            <label for="f-name"><span data-i18n="form.name">Имя</span> <span class="req">*</span></label>
+            <input class="input" id="f-name" name="name" autocomplete="name" maxlength="80" data-i18n-ph="form.namePh" required>
+          </div>
+          <div class="field">
+            <label for="f-contact"><span data-i18n="form.contact">Как с вами связаться</span> <span class="req">*</span></label>
+            <div class="contact-pair">
+              <select class="select" id="f-channel" name="channel" data-i18n-aria="form.channel"></select>
+              <input class="input" id="f-contact" name="contact" maxlength="120" placeholder="@username" required>
+            </div>
+          </div>
+        </div>
+        <div class="row-2">
+          <div class="field"><label for="f-type" data-i18n="form.type">Что нужно</label><select class="select" id="f-type" name="type"></select></div>
+          <div class="field"><label for="f-budget" data-i18n="form.budget">Бюджет</label><select class="select" id="f-budget" name="budget"></select></div>
+        </div>
+        <div class="field">
+          <label for="f-message"><span data-i18n="form.message">Об игре</span> <span class="req">*</span></label>
+          <textarea class="textarea" id="f-message" name="message" maxlength="2000" data-i18n-ph="form.messagePh" required></textarea>
+        </div>
+        <div class="hp" aria-hidden="true"><label for="f-website">Website</label><input id="f-website" name="website" tabindex="-1" autocomplete="off"></div>
+        <label class="check" for="f-agree"><input type="checkbox" id="f-agree" name="agree" required><span data-i18n="form.agree"></span></label>
+        <div class="form-status" id="formStatus" role="status" hidden></div>
+        <div class="form-foot">
+          <button class="btn btn-primary" type="submit" id="submitBtn" data-i18n="form.submit">Отправить заявку</button>
+          <span class="form-note" data-i18n="form.note"></span>
+        </div>
+      </form>
     </div>
   </section>
 </main>

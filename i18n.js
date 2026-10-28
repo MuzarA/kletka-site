@@ -52,8 +52,8 @@ window.I18N = {
     },
     contact: {
       eyebrow: "Консультация", h2: "Расскажите, какую игру хотите",
-      p: "Напишите нам в Telegram, и мы ответим {time}. Консультация бесплатная и ни к чему не обязывает.", tgBtn: "Написать в Telegram",
-      time: "в течение рабочего дня", email: "Почта", copy: "Копировать", copied: "Скопировано: ", selected: "Выделено, нажмите Ctrl+C"
+      p: "Заполните форму: заявка сразу придёт нашему Telegram-боту, и мы ответим {time}. Можно и просто написать боту. Консультация бесплатная и ни к чему не обязывает.",
+      time: "в течение рабочего дня", email: "Почта", bot: "Telegram-бот", copy: "Копировать", copied: "Скопировано: ", selected: "Выделено, нажмите Ctrl+C"
     },
     form: {
       title: "Заявка на консультацию", name: "Имя", namePh: "Как к вам обращаться", contact: "Как с вами связаться", channel: "Способ связи",
@@ -132,8 +132,8 @@ window.I18N = {
     },
     contact: {
       eyebrow: "Кеңешме", h2: "Кандай оюн керек экенин айтыңыз",
-      p: "Бизге Telegram'га жазыңыз, биз {time} жооп беребиз. Кеңешме акысыз жана эч нерсеге милдеттендирбейт.", tgBtn: "Telegram'га жазуу",
-      time: "бир иш күнүнүн ичинде", email: "Почта", copy: "Көчүрүү", copied: "Көчүрүлдү: ", selected: "Белгиленди, Ctrl+C басыңыз"
+      p: "Форманы толтуруңуз: арыз дароо Telegram-ботубузга келет, биз {time} жооп беребиз. Ботко түз жазсаңыз да болот. Кеңешме акысыз жана эч нерсеге милдеттендирбейт.",
+      time: "бир иш күнүнүн ичинде", email: "Почта", bot: "Telegram-бот", copy: "Көчүрүү", copied: "Көчүрүлдү: ", selected: "Белгиленди, Ctrl+C басыңыз"
     },
     form: {
       title: "Кеңешмеге арыз", name: "Аты", namePh: "Сизге кантип кайрылалы", contact: "Сиз менен кантип байланышабыз", channel: "Байланыш жолу",
@@ -212,8 +212,8 @@ window.I18N = {
     },
     contact: {
       eyebrow: "Consultation", h2: "Tell us what game you want",
-      p: "Message us on Telegram and we'll reply {time}. The consultation is free and there's no obligation.", tgBtn: "Message us on Telegram",
-      time: "within one business day", email: "Email", copy: "Copy", copied: "Copied: ", selected: "Selected, press Ctrl+C"
+      p: "Fill in the form: your request goes straight to our Telegram bot and we'll reply {time}. You can also message the bot directly. The consultation is free and there's no obligation.",
+      time: "within one business day", email: "Email", bot: "Telegram bot", copy: "Copy", copied: "Copied: ", selected: "Selected, press Ctrl+C"
     },
     form: {
       title: "Consultation request", name: "Name", namePh: "How should we address you", contact: "How to reach you", channel: "Contact method",
