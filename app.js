@@ -204,21 +204,9 @@
   /* ---------- контакты, форма, подвал ---------- */
   function renderContact() {
     $("#contactLead").textContent = fill(t("contact.p"), { time: t("contact.time") });
-    var ch = [];
-    if (studio.telegram) ch.push({ icon: "i-tg", label: "Telegram", value: "@" + studio.telegram, href: "https://t.me/" + studio.telegram });
-    if (studio.email) ch.push({ icon: "i-mail", label: t("contact.email"), value: studio.email });
-    if (studio.github) ch.push({ icon: "i-gh", label: "GitHub", value: studio.github.replace(/^https?:\/\//, ""), href: studio.github });
-    $("#channels").innerHTML = ch.map(function (c) {
-      var val = c.href ? '<a class="val" href="' + esc(c.href) + '" target="_blank" rel="noopener">' + esc(c.value) + "</a>" : '<span class="val">' + esc(c.value) + "</span>";
-      return '<div class="channel"><span class="channel-icon">' + icon(c.icon) + "</span><div><small>" + esc(c.label) + "</small>" + val + "</div>" +
-        '<button type="button" class="copy-btn" data-copy="' + esc(c.value) + '">' + esc(t("contact.copy")) + "</button></div>";
-    }).join("");
-    // в Telegram уходят русские значения списков, на экране — перевод
-    [["#f-channel", "form.channels"], ["#f-type", "form.types"], ["#f-budget", "form.budgets"]].forEach(function (pair) {
-      var sel = $(pair[0]), idx = Math.max(0, sel.selectedIndex), ru = D.ru.form[pair[1].split(".")[1]], cur = t(pair[1]);
-      sel.innerHTML = cur.map(function (label, i) { return '<option value="' + esc(ru[i]) + '">' + esc(label) + "</option>"; }).join("");
-      sel.selectedIndex = Math.min(idx, cur.length - 1);
-    });
+    var tg = $("#tgCta");
+    tg.href = "https://t.me/" + studio.telegram;
+    tg.innerHTML = icon("i-tg") + "<span>" + esc(t("contact.tgBtn")) + "</span>";
     var fl = games.map(function (g) { return '<a href="#game-' + esc(g.id) + '">' + esc(tr(g.title)) + "</a>"; });
     if (studio.github) fl.push('<a href="' + esc(studio.github) + '" target="_blank" rel="noopener">GitHub</a>');
     if (studio.telegram) fl.push('<a href="https://t.me/' + esc(studio.telegram) + '" target="_blank" rel="noopener">Telegram</a>');
@@ -342,57 +330,4 @@
     });
   });
 
-  /* ---------- заявка ---------- */
-  var form = $("#leadForm"), statusBox = $("#formStatus"), btn = $("#submitBtn");
-  var placeholders = { "Telegram": "@username", "WhatsApp": "+996 555 000 000", "Email": "name@mail.com", "Телефон": "+996 555 000 000" };
-  $("#f-channel").addEventListener("change", function () { $("#f-contact").placeholder = placeholders[$("#f-channel").value] || ""; });
-  function setError(id, msg) {
-    var field = document.getElementById(id).closest(".field");
-    var old = field.querySelector(".err"); if (old) old.remove();
-    field.classList.toggle("invalid", !!msg);
-    if (msg) { var el = document.createElement("span"); el.className = "err"; el.textContent = msg; field.appendChild(el); }
-  }
-  function showStatus(kind, html) { statusBox.className = "form-status " + kind; statusBox.innerHTML = html; statusBox.hidden = false; }
-  function collect() {
-    var f = form.elements;
-    return { name: f.name.value.trim(), channel: f.channel.value, contact: f.contact.value.trim(), type: f.type.value, budget: f.budget.value,
-      message: f.message.value.trim(), agree: f.agree.checked, website: f.website.value, page: location.href.split("#")[0], lang: lang };
-  }
-  var DRAFT = "kletka-lead-draft";
-  try {
-    var saved = JSON.parse(localStorage.getItem(DRAFT) || "null");
-    if (saved) ["name", "channel", "contact", "type", "budget", "message"].forEach(function (k) { if (saved[k] && form.elements[k]) form.elements[k].value = saved[k]; });
-  } catch (e) {}
-  var draftTimer;
-  form.addEventListener("input", function () {
-    clearTimeout(draftTimer);
-    draftTimer = setTimeout(function () { try { localStorage.setItem(DRAFT, JSON.stringify(collect())); } catch (e) {} }, 400);
-  });
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    statusBox.hidden = true;
-    var d = collect(), ok = true;
-    setError("f-name", ""); setError("f-contact", ""); setError("f-message", "");
-    if (d.name.length < 2) { setError("f-name", t("form.errName")); ok = false; }
-    if (d.contact.length < 3) { setError("f-contact", t("form.errContact")); ok = false; }
-    else if (d.channel === "Email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.contact)) { setError("f-contact", t("form.errEmail")); ok = false; }
-    if (d.message.length < 10) { setError("f-message", t("form.errMessage")); ok = false; }
-    if (!d.agree) { showStatus("error", esc(t("form.errAgree"))); ok = false; }
-    if (!ok) return;
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner" aria-hidden="true"></span> ' + esc(t("form.sending"));
-    fetch(S.formEndpoint || "/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(d) })
-      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && j.ok, j: j }; }); })
-      .then(function (res) {
-        if (!res.ok) throw { server: res.j && res.j.error };
-        form.reset();
-        try { localStorage.removeItem(DRAFT); } catch (e2) {}
-        showStatus("ok", fill(t("form.ok"), { time: esc(t("contact.time")) }));
-      })
-      .catch(function (err) {
-        var head = lang === "ru" && err && err.server ? esc(err.server) + "." : esc(t("form.fail"));
-        showStatus("error", head + " " + fill(t("form.retry"), { tg: esc(studio.telegram || "") }));
-      })
-      .then(function () { btn.disabled = false; btn.textContent = t("form.submit"); });
-  });
 })();

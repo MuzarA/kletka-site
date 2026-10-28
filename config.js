@@ -11,8 +11,7 @@ window.SITE = {
     name: { ru: "Клетка", ky: "Клетка", en: "Kletka" },
     full: { ru: "Студия «Клетка»", ky: "«Клетка» студиясы", en: "Kletka Studio" },
     founded: 2025,
-    email: "hello@kletka.games",
-    telegram: "kletka_games",          // без @
+    telegram: "casunnn",               // без @ — сюда ведёт кнопка «Написать в Telegram»
     github: "https://github.com/MuzarA"
   },
 

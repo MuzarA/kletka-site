@@ -52,7 +52,7 @@ window.I18N = {
     },
     contact: {
       eyebrow: "Консультация", h2: "Расскажите, какую игру хотите",
-      p: "Оставьте заявку, и мы ответим {time}. Консультация бесплатная и ни к чему не обязывает.",
+      p: "Напишите нам в Telegram, и мы ответим {time}. Консультация бесплатная и ни к чему не обязывает.", tgBtn: "Написать в Telegram",
       time: "в течение рабочего дня", email: "Почта", copy: "Копировать", copied: "Скопировано: ", selected: "Выделено, нажмите Ctrl+C"
     },
     form: {
@@ -132,7 +132,7 @@ window.I18N = {
     },
     contact: {
       eyebrow: "Кеңешме", h2: "Кандай оюн керек экенин айтыңыз",
-      p: "Арыз калтырыңыз, биз {time} жооп беребиз. Кеңешме акысыз жана эч нерсеге милдеттендирбейт.",
+      p: "Бизге Telegram'га жазыңыз, биз {time} жооп беребиз. Кеңешме акысыз жана эч нерсеге милдеттендирбейт.", tgBtn: "Telegram'га жазуу",
       time: "бир иш күнүнүн ичинде", email: "Почта", copy: "Көчүрүү", copied: "Көчүрүлдү: ", selected: "Белгиленди, Ctrl+C басыңыз"
     },
     form: {
@@ -212,7 +212,7 @@ window.I18N = {
     },
     contact: {
       eyebrow: "Consultation", h2: "Tell us what game you want",
-      p: "Leave a request and we'll reply {time}. The consultation is free and there's no obligation.",
+      p: "Message us on Telegram and we'll reply {time}. The consultation is free and there's no obligation.", tgBtn: "Message us on Telegram",
       time: "within one business day", email: "Email", copy: "Copy", copied: "Copied: ", selected: "Selected, press Ctrl+C"
     },
     form: {
